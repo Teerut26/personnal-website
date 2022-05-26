@@ -1,5 +1,5 @@
 {
-	"name": "visut-personnal-sveltekit-2",
+	"name": "personnal-website",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
