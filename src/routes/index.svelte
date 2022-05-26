@@ -1,60 +1,39 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
+	import type { Index } from '$lib/interfaces/Index';
+	import Navbar from '$lib/components/Navbar.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import DrawerSide from '$lib/components/DrawerSide.svelte';
+
+	export let data: Index;
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
+<div class="drawer">
+	<input id="my-drawer" type="checkbox" class="drawer-toggle" />
+	<div class="drawer-content flex flex-col h-screen">
+		<Navbar />
+		<div class="grow">
+			<div class="flex flex-col gap-3 p-3 h-full">
+				<Card
+					title={'บุคลากรทั้งหมด'}
+					value={data.data.personnelApi.length}
+					classCustom="text-center justify-center"
+				/>
+				<div class="flex flex-col h-full md:flex-row gap-3">
+					<Card
+						image_url="/male.png"
+						classCustom="justify-center"
+						title={'บุคลากรชาย'}
+						value={data.data.personnelApi.filter(item=>!item.isFemale).length}
+					/>
+					<Card
+						image_url="/female.png"
+						classCustom="justify-center"
+						title={'บุคลากรหญิง'}
+						value={data.data.personnelApi.filter(item=>item.isFemale).length}
+					/>
+				</div>
+			</div>
 		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+	</div>
+	<DrawerSide  />
+</div>
